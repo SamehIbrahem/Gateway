@@ -1,4 +1,5 @@
 ﻿using GatewayTask.Data.Entities;
+using GatewayTask.Service.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,7 +9,7 @@ namespace GatewayTask.Service.Interfaces
 {
     public interface IGatewayService
     {
-        Task<Gateway> GetGateway(int id);
-        Task<List<Gateway>> GetAsync();
+        Task<GatewayDto> GetGateway(int id);
+        Task<List<GatewayDto>> GetAsync();
     }
 }

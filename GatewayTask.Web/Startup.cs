@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GatewayTask.Service.Mapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -25,7 +26,19 @@ namespace GatewayTask.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var con = Configuration.GetConnectionString("gatewayDb");
+
+            services.AddDbContext(con);
+
+            services.AddRepository();
+
+            services.AddTransientServices();
+
             services.AddControllers();
+            services.AddCors();
+            services.AddAutoMapper(typeof(MappingProfile));
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
