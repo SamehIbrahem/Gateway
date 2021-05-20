@@ -21,15 +21,12 @@ namespace GatewayTask.Repo.Data
         }
         public Task<List<T>> GetAll(params Expression<Func<T, object>>[] includes)
         {
-            IEnumerable<T> query = null;
+            var query = AsQueryable();
             foreach (var include in includes)
             {
                 query = entities.Include(include);
             }
-            if (query != null)
-                return Task.FromResult(query.ToList());
-
-            return entities.ToListAsync();
+            return query.ToListAsync();
         }
 
         public IQueryable<T> AsQueryable()
@@ -37,11 +34,18 @@ namespace GatewayTask.Repo.Data
             return entities.AsQueryable();
         }
 
-        public Task<T> Get(int id)
+        public Task<T> Get(int id, params Expression<Func<T, object>>[] includes)
         {
-            return entities.SingleOrDefaultAsync(s => s.Id == id);
+            
+            IQueryable<T> query = AsQueryable();
+            foreach (var include in includes)
+            {
+                query = entities.Include(include);
+            }
+
+            return query.SingleOrDefaultAsync(s => s.Id == id);
         }
-        public async Task Insert(T entity)
+        public async Task<T> Insert(T entity)
         {
             if (entity == null)
             {
@@ -49,18 +53,20 @@ namespace GatewayTask.Repo.Data
             }
             entities.Add(entity);
             await context.SaveChangesAsync();
+            return entity;
         }
 
-        public async Task Update(T entity)
+        public async Task<T> Update(T entity)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException("entity");
             }
             await context.SaveChangesAsync();
+            return entity;
         }
 
-        public async Task Delete(T entity)
+        public async Task<T> Delete(T entity)
         {
             if (entity == null)
             {
@@ -68,6 +74,7 @@ namespace GatewayTask.Repo.Data
             }
             entities.Remove(entity);
             await context.SaveChangesAsync();
+            return entity;
         }
 
     }

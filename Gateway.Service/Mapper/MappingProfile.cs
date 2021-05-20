@@ -13,6 +13,8 @@ namespace GatewayTask.Service.Mapper
         {
             CreateMap<Gateway, GatewayDto>().ReverseMap();
             CreateMap<Device, DeviceDto>().ReverseMap();
+            CreateMap<CreateGatewayDto, Gateway>().ReverseMap();
+            CreateMap<CreateDeviceDto, Device>().ReverseMap();
         }
     }
 }

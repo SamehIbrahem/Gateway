@@ -23,13 +23,20 @@ namespace GatewayTask.Service
 
         public async Task<List<GatewayDto>> GetAsync()
         {
-            return mapper.Map<List<GatewayDto>>(await gatewayRepository.GetAll(e=>e.Devices));
+            return mapper.Map<List<GatewayDto>>(await gatewayRepository.GetAll(e => e.Devices));
 
         }
 
         public async Task<GatewayDto> GetGateway(int id)
         {
-            return mapper.Map<GatewayDto>(await gatewayRepository.Get(id));
+            return mapper.Map<GatewayDto>(await gatewayRepository.Get(id, e => e.Devices));
+        }
+
+        public async Task<GatewayDto> CreateGateway(CreateGatewayDto dto)
+        {
+            var entity = mapper.Map<Gateway>(dto);
+            entity.Created = DateTime.Now;
+            return mapper.Map<GatewayDto>(await gatewayRepository.Insert(entity));
         }
     }
 }

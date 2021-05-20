@@ -28,6 +28,7 @@ namespace GatewayTask.Web
         public static void AddTransientServices(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddTransient<IGatewayService, GatewayService>();
+            serviceCollection.AddTransient<IDeviceService, DeviceService>();
 
         }
 

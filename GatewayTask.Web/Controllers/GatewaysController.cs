@@ -21,6 +21,8 @@ namespace GatewayTask.Web.Controllers
             this.gatewayService = gatewayService;
         }
 
+      
+
         [HttpGet]
         [Route("")]
         public Task<List<GatewayDto>> GetAsync()
@@ -33,6 +35,12 @@ namespace GatewayTask.Web.Controllers
         public Task<GatewayDto> GetGateway(int id)
         {
             return gatewayService.GetGateway(id);
+        }
+
+        [HttpPost]
+        public Task<GatewayDto> CreateGateway(CreateGatewayDto dto)
+        {
+            return gatewayService.CreateGateway(dto);
         }
     }
 }

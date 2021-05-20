@@ -10,6 +10,8 @@ namespace GatewayTask.Service.Dtos
         public string SerialNumber { get; set; }
         public string Name { get; set; }
         public string IPv4Address { get; set; }
+        public DateTime Created { get; set; }
+        public DateTime Modified { get; set; }
 
         public ICollection<DeviceDto> Devices { get; set; }
     }

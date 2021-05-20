@@ -11,5 +11,6 @@ namespace GatewayTask.Service.Interfaces
     {
         Task<GatewayDto> GetGateway(int id);
         Task<List<GatewayDto>> GetAsync();
+        Task<GatewayDto> CreateGateway(CreateGatewayDto dto);
     }
 }
